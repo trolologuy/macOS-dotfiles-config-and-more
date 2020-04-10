@@ -13,15 +13,17 @@
 
 ## Themes to choose from
 My favorites :
-* [powerlevel10k](https://github.com/romkatv/powerlevel10k)
-* [spaceship](https://github.com/denysdovhan/spaceship-prompt)
+1. [powerlevel10k](https://github.com/romkatv/powerlevel10k)
+2. [spaceship](https://github.com/denysdovhan/spaceship-prompt)
 
-[All of the themes](https://github.com/ohmyzsh/ohmyzsh/wiki/themes)
+[All of the themes available](https://github.com/ohmyzsh/ohmyzsh/wiki/themes)
 
 ## Theme installation 
 __Prerequisite__: iTerm2 installed on the machine
 
-### powerlevel10k theme
+Choose one of the following themes.
+
+### 1. powerlevel10k theme
 
 More info can be found [here]()
 
@@ -34,7 +36,7 @@ More info can be found [here]()
 
 After the installation it will ask you to restart iTerm and will start the configuration wizard.
  
-### spaceship theme
+### 2. spaceship theme
 More info can be found [here](https://github.com/denysdovhan/spaceship-prompt)
 
 #### Installation
