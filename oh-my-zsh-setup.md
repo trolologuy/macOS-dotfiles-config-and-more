@@ -53,9 +53,10 @@ More info can be found [here](https://github.com/denysdovhan/spaceship-prompt)
 # Plugins
 
 ## List of plugins that are added
-* [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
-* [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
-* [colored-man-pages](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/colored-man-pages)
+* [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) - shows if a command / alias / binary exists
+* [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) - adds autosugestion to your commands
+* [colored-man-pages](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/colored-man-pages) - adds colors to your man pages
+* [ssh-agent](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/ssh-agent) - avoids having to type the password to unlock the ssh key all the time
 
 ## Add the zsh-syntax-highlighting plugin
 `git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting`
@@ -64,7 +65,7 @@ More info can be found [here](https://github.com/denysdovhan/spaceship-prompt)
 `git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions`
 
 ## Add the plugins to the config file. 
-`sed -i'.bak' -e 's/^\(plugins=\s*\).*$/\plugins=(git zsh-syntax-highlighting zsh-autosuggestions colored-man-pages)/' ~/.zshrc`
+`sed -i'.bak' -e 's/^\(plugins=\s*\).*$/\plugins=(git zsh-syntax-highlighting zsh-autosuggestions colored-man-pages ssh-agent)/' ~/.zshrc`
 
 If it fails, check [this article](https://stackoverflow.com/questions/4247068/sed-command-with-i-option-failing-on-mac-but-works-on-linux)
 
