@@ -6,8 +6,15 @@
 ## Download the latest version of oh-my-zsh
 `sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
 
+## Install Powerline fonts
+For example [Firacode](https://github.com/tonsky/FiraCode):
+- `brew tap homebrew/cask-fonts`
+- `brew cask install font-fira-code`
 
+And then set the default font in iTerm under:
+`Preferences / Profiles / Text`.
 
+There change the font to Fira Code and check the checkbox "_Use built-in powerline glyphs_".
 
 # Theme
 
