@@ -76,6 +76,9 @@ More info can be found [here](https://github.com/denysdovhan/spaceship-prompt)
 
 If it fails, check [this article](https://stackoverflow.com/questions/4247068/sed-command-with-i-option-failing-on-mac-but-works-on-linux)
 
+## Activate the option to display red dots whilst waiting for completion by uncommenting the line
+`sed -i '/# COMPLETION_WAITING_DOTS=\"true\"/s/^#//g' ~/.zshrc`
+
 ## Remove backup of .zshrc file
 `rm .zshrc.bak`
 
