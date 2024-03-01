@@ -6,9 +6,9 @@ Ready ? Yeah ?
 So, let's dive in !
 
 ## Install Hammerspoon
-Visit [this page](https://github.com/Hammerspoon/hammerspoon)
 
-## Useful Spoons
+1. Visit [this page](https://github.com/Hammerspoon/hammerspoon)
+2. Download the following spoons and click on them for installation:
 * [WifiNotifier](https://www.hammerspoon.org/Spoons/WifiNotifier.html) - Receive notifications every time your wifi network changes.
 * [Shade](https://www.hammerspoon.org/Spoons/Shade.html) - Creates a semitransparent overlay to reduce screen brightness.
 * [MountedVolumes](https://www.hammerspoon.org/Spoons/MountedVolumes.html) - Displays a list of mounted volumes and a pie chart for each indicating free space on the desktop
@@ -16,6 +16,8 @@ Visit [this page](https://github.com/Hammerspoon/hammerspoon)
 * [ClipboardTool](https://www.hammerspoon.org/Spoons/ClipboardTool.html) - Keep a history of the clipboard for text entries and manage the entries with a context menu
 * [DeepLTranslate](https://www.hammerspoon.org/Spoons/DeepLTranslate.html) - Show a popup window with the translation of the currently selected text
 * [MenuHammer](https://github.com/FryJay/MenuHammer) - A Spacemacs inspired menu system for macOS built for Hammerspoon.
+* [MicMute](https://www.hammerspoon.org/Spoons/MicMute.html)) - To mute/unmute your microphone.
+
 
 ## Shortcuts
 
