@@ -67,6 +67,15 @@ So, let's dive in !
 #### Focus on iTerm
 <kbd>hyper</kbd> + <kbd>,</kbd>
 
+#### Finder: open a terminal in the current folder
+<kbd>hyper</kbd> + <kbd>t</kbd>
+
+#### Finder: copy the path of the selection (or of the current folder)
+<kbd>hyper</kbd> + <kbd>p</kbd>
+
+#### Finder: create a new file (asks for the name, e.g. notes.txt or config.yaml)
+<kbd>hyper</kbd> + <kbd>e</kbd>
+
 #### Show Clipboard (*ClipboardTool*)
 <kbd>hyper</kbd> + <kbd>,</kbd>
   
