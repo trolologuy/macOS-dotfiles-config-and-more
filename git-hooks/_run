@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+# Global git hooks (core.hooksPath points here, see scripts/install-git-hooks.sh).
+# Every hook name in this folder is a symlink to this file. It:
+#   1. pre-commit only: blocks commits that contain secrets (gitleaks on the staged changes);
+#   2. pre-commit only: runs the repo's .pre-commit-config.yaml when the repo has one (pre-commit framework);
+#   3. always: chains to the repo's own .git/hooks/<name>, which core.hooksPath would otherwise silently skip.
+# Bypass once (you know it is a false positive): SKIP_GLOBAL_HOOKS=1 git commit ...  (or git commit --no-verify: skips all)
+set -uo pipefail
+
+hook=$(basename "$0")
+repo=$(git rev-parse --show-toplevel 2>/dev/null) || exit 0
+gitdir=$(git rev-parse --git-common-dir 2>/dev/null)
+
+if [[ $hook == pre-commit && "${SKIP_GLOBAL_HOOKS:-0}" != 1 ]]; then
+  if command -v gitleaks >/dev/null; then
+    if ! gitleaks git --pre-commit --staged --redact --no-banner --exit-code 1 "$repo"; then
+      echo "Blocked: possible secret in the staged changes (above). Remove it, or if it is a false positive add the" >&2
+      echo "fingerprint to .gitleaksignore, or commit once with SKIP_GLOBAL_HOOKS=1." >&2
+      exit 1
+    fi
+  else
+    echo "global pre-commit: gitleaks not installed (brew install gitleaks); secret check skipped" >&2
+  fi
+  if [[ -f "$repo/.pre-commit-config.yaml" ]]; then
+    if command -v pre-commit >/dev/null; then
+      # `pre-commit install` refuses to work with core.hooksPath set, so the framework is run from here instead
+      (cd "$repo" && pre-commit run --hook-stage pre-commit) || exit 1
+    else
+      echo "global pre-commit: this repo has .pre-commit-config.yaml but pre-commit is not installed (brew install pre-commit)" >&2
+    fi
+  fi
+fi
+
+local_hook="$gitdir/hooks/$hook"
+if [[ -x "$local_hook" ]]; then
+  exec "$local_hook" "$@"
+fi
+exit 0

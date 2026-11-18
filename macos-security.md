@@ -79,6 +79,24 @@ Habits that matter more than the scan:
 `./scripts/scan-repos-secrets.sh ~/Projects` runs gitleaks over the full history of every repo. This repository is public:
 scan before pushing. When something is found, rotate the secret first; deleting the file does not remove it from history.
 
+## Pre-commit hooks (block problems before they enter history)
+
+```sh
+./scripts/install-git-hooks.sh        # once per Mac: git config --global core.hooksPath -> git-hooks/
+./scripts/install-git-hooks.sh --off  # undo
+```
+
+[`git-hooks/_run`](git-hooks/_run) runs for every repository on the Mac:
+
+1. **pre-commit**: gitleaks on the staged changes; a commit containing a secret is refused.
+2. **pre-commit**: if the repo has a `.pre-commit-config.yaml`, runs it with the pre-commit framework (shellcheck, ruff,
+   yamllint, ... as the repo defines). No `pre-commit install` per clone: it would refuse while `core.hooksPath` is set.
+3. **every hook**: then runs the repo's own `.git/hooks/<name>`, which a global `core.hooksPath` would otherwise skip.
+
+Limits: hooks are local. `git commit --no-verify` skips them, and other machines (or an AI agent's sandbox) don't have
+them, so the scan scripts and PR checks still matter. False positive: add the fingerprint gitleaks prints to the repo's
+`.gitleaksignore`, or commit once with `SKIP_GLOBAL_HOOKS=1 git commit ...`.
+
 ## Other scanners (homelab)
 
 - `trivy image <image>` / `trivy fs .`: vulnerabilities in container images, filesystems and IaC.
