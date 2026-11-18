@@ -7,6 +7,7 @@ You'll find here config and dot files as well as documentation and scripts i use
 brew bundle --file=Brewfile            # apps and CLI tools (review the Brewfile first)
 ./macos/finder-defaults.sh --dry-run   # then without --dry-run
 ./macos/security-audit.sh              # read-only security audit; --apply to fix things one by one
+./scripts/install-git-hooks.sh         # gitleaks before every commit, in every repo
 ```
 
 ## Fileslist
@@ -24,6 +25,7 @@ The different files contained in the repository split by usage.
 * [macos/security-audit.sh](macos/security-audit.sh) - Read-only audit (FileVault, firewall, updates, sharing, persistence, ...) with opt-in fixes
 * [scripts/scan-repos-secrets.sh](scripts/scan-repos-secrets.sh) - gitleaks over every git repo in a folder (whole history)
 * [scripts/scan-repos-deps.sh](scripts/scan-repos-deps.sh) - OSV-Scanner over every project's lockfiles (npm, Python, Composer, ...)
+* [git-hooks/](git-hooks/_run) + [scripts/install-git-hooks.sh](scripts/install-git-hooks.sh) - Global git hooks: gitleaks on every commit, then the repo's own pre-commit config and hooks
 
 ### Shell
 * [oh-my-zsh-setup.md](oh-my-zsh-setup.md) - A quickstart guide for [oh-my-zsh](https://ohmyz.sh/)

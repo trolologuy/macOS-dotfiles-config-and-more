@@ -16,7 +16,8 @@ cask "knockknock"               # one-off scan of everything that runs at login
 
 # Security CLI scanners
 brew "lynis"                    # host audit: sudo lynis audit system
-brew "gitleaks"                 # secrets in git repos: scripts/scan-repos-secrets.sh
+brew "gitleaks"                 # secrets in git repos: scripts/scan-repos-secrets.sh + global pre-commit hook
+brew "pre-commit"               # runs a repo's .pre-commit-config.yaml (called by git-hooks/_run)
 brew "osv-scanner"              # known vulnerabilities in npm/PyPI/Composer/... lockfiles: scripts/scan-repos-deps.sh
 brew "trivy"                    # vulnerabilities in container images, filesystems, IaC
 brew "nmap"                     # port scans (external check: from a phone hotspot)
