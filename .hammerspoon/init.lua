@@ -285,6 +285,76 @@ spoon.MiroWindowsManager:bindHotkeys({
 
 
 --------------------------
+-- Finder helpers       --
+--------------------------
+-- Keyboard fallbacks for the right-click items of Finder Menu (see Brewfile), acting on the front Finder window:
+--   hyper + t  open iTerm (or Terminal) in the current folder
+--   hyper + p  copy the path of the selected items, or of the current folder when nothing is selected
+--   hyper + e  create a new file (asks for the name, e.g. notes.txt or config.yaml) and select it
+-- Show/hide hidden files: Cmd+Shift+. (built in). First use: allow Hammerspoon to control Finder
+-- (System Settings > Privacy & Security > Automation).
+
+-- POSIX path of the front Finder window's folder (the Desktop when no window is open)
+local function finderFolder()
+    local ok, path = hs.osascript.applescript([[
+        tell application "Finder"
+            if (count of Finder windows) is 0 then return POSIX path of (desktop as alias)
+            return POSIX path of (target of front Finder window as alias)
+        end tell]])
+    if ok and path then return path end
+    hs.alert.show("Could not read the Finder folder (Automation permission?)")
+    return nil
+end
+
+-- POSIX paths of the selected Finder items (empty table when nothing is selected)
+local function finderSelection()
+    local ok, paths = hs.osascript.applescript([[
+        tell application "Finder"
+            set out to {}
+            repeat with i in (get selection)
+                set end of out to POSIX path of (i as alias)
+            end repeat
+            return out
+        end tell]])
+    if ok and type(paths) == "table" then return paths end
+    return {}
+end
+
+hs.hotkey.bind(hyper, "t", function()
+    local dir = finderFolder()
+    if not dir then return end
+    local app = hs.application.pathForBundleID("com.googlecode.iterm2") and "iTerm" or "Terminal"
+    hs.task.new("/usr/bin/open", nil, {"-a", app, dir}):start()
+end)
+
+hs.hotkey.bind(hyper, "p", function()
+    local paths = finderSelection()
+    if #paths == 0 then
+        local dir = finderFolder()
+        if not dir then return end
+        paths = {dir}
+    end
+    hs.pasteboard.setContents(table.concat(paths, "\n"))
+    hs.alert.show(#paths == 1 and ("Copied " .. paths[1]) or ("Copied " .. #paths .. " paths"))
+end)
+
+hs.hotkey.bind(hyper, "e", function()
+    local dir = finderFolder()
+    if not dir then return end
+    hs.focus()
+    local button, name = hs.dialog.textPrompt("New file in " .. dir, "Name with extension:", "untitled.txt", "Create", "Cancel")
+    if button ~= "Create" or name == nil or name == "" then return end
+    if name:find("/") then hs.alert.show("No slashes in the name") return end
+    local path = dir:gsub("/$", "") .. "/" .. name
+    if hs.fs.attributes(path) then hs.alert.show(name .. " already exists") return end
+    local f = io.open(path, "w")
+    if not f then hs.alert.show("Could not create " .. name) return end
+    f:close()
+    hs.task.new("/usr/bin/open", nil, {"-R", path}):start()   -- reveal and select it
+end)
+
+
+--------------------------
 -- reloadConfig         --
 --------------------------
 -- Automatically reloads the hammerspoon config on save
