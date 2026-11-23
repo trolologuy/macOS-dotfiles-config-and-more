@@ -1,0 +1,11 @@
+# Private keys and secrets never go in this public repo; they live in 1Password.
+id_*
+!id_*.pub
+*.pem
+*.key
+*.p12
+.env
+.env.*
+**/config.local
+**/.gitconfig.local
+.DS_Store

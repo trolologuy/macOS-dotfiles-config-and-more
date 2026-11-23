@@ -9,6 +9,12 @@
 set -euo pipefail
 dir=$(cd "$(dirname "$0")/../git-hooks" && pwd)
 
+if grep -q "Managed by chezmoi" "$HOME/.gitconfig" 2>/dev/null; then
+  echo "~/.gitconfig is managed by chezmoi: core.hooksPath is set in home/dot_gitconfig.tmpl." >&2
+  echo "To turn hooks off, remove the [core] hooksPath lines there and run 'chezmoi apply'." >&2
+  exit 0
+fi
+
 if [[ "${1:-}" == "--off" ]]; then
   git config --global --unset core.hooksPath || true
   echo "Global hooks off."

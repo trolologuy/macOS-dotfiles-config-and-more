@@ -1,0 +1,13 @@
+{{- /* Generated into ~/.config/chezmoi/chezmoi.toml by `chezmoi init`. Never committed. */ -}}
+{{- $vault := promptStringOnce . "vault" "1Password vault holding the dotfiles items" "Private" -}}
+{{- $sshKey := promptStringOnce . "sshKeyItem" "1Password SSH Key item name for homelab hosts" "homelab-ssh" -}}
+
+[data]
+  vault = {{ $vault | quote }}
+  sshKeyItem = {{ $sshKey | quote }}
+  inventoryItem = "homelab-inventory"
+  gitItem = "git-identity"
+
+[onepassword]
+  # Uses the 1Password app integration (Touch ID), no service-account token.
+  mode = "account"
