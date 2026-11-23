@@ -1,0 +1,12 @@
+[[ssh-keys]]
+item = "homelab-ssh"
+vault = "dotfiles"
+
+[[ssh-keys]]
+item = "Default (id_ed25519)"
+vault = "Private"
+
+[[ssh-keys]]
+item = "Github to Gitlab - SSH key"
+vault = "Private"
+

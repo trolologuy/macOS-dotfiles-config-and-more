@@ -1,0 +1,16 @@
+# Template for the 1Password secure note "homelab-inventory" (notes field).
+# The real values live ONLY in 1Password. This file is a fake example.
+# Fields per host: name (required), hostname (required), user, port, aliases, proxyjump
+hosts:
+  - name: nas-ugreen
+    hostname: nas-ugreen.home.arpa   # or an IP; prefer UniFi local DNS names
+    user: admin-user
+    aliases: [nas]
+  - name: nas-synology
+    hostname: 192.0.2.10
+    user: admin-user
+    port: 2222
+  - name: nas-remote
+    hostname: 198.51.100.20          # second site, reached through the local NAS
+    user: admin-user
+    proxyjump: nas-ugreen

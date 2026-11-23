@@ -1,0 +1,10 @@
+{{- /* Empty output = chezmoi doesn't create the file, so no work_dir means no work config. */ -}}
+{{- $f := dict -}}
+{{- range (onepassword .gitItem .vault).fields -}}
+{{-   if get . "label" }}{{ $_ := set $f (get . "label") (get . "value") }}{{ end -}}
+{{- end -}}
+{{- if and (get $f "work_dir") (get $f "work_email") -}}
+# Managed by chezmoi. Used for repos under {{ get $f "work_dir" }}.
+[user]
+	email = {{ get $f "work_email" }}
+{{ end -}}

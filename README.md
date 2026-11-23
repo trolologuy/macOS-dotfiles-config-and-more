@@ -36,3 +36,7 @@ The different files contained in the repository split by usage.
 
 ### Decisions
 * [decisions.md](decisions.md) - Why things are done the way they are
+
+## Install
+
+Managed with chezmoi + 1Password. See [docs/chezmoi.md](docs/chezmoi.md) and [decisions.md](decisions.md).

@@ -1,0 +1,26 @@
+# Managed by chezmoi. Edit with `chezmoi edit ~/.ssh/config`, not here.
+# Hosts come from the 1Password secure note "{{ .inventoryItem }}" (vault "{{ .vault }}").
+# Unmanaged one-offs (OrbStack, Colima, work hosts…) go in ~/.ssh/config.local.
+Include ~/.ssh/config.local
+{{- $inv := onepasswordRead (printf "op://%s/%s/notesPlain" .vault .inventoryItem) | fromYaml }}
+{{- range $inv.hosts }}
+
+Host {{ get . "name" }}{{ with get . "aliases" }} {{ join " " . }}{{ end }}
+  HostName {{ get . "hostname" }}
+{{- with get . "user" }}
+  User {{ . }}
+{{- end }}
+{{- with get . "port" }}
+  Port {{ . }}
+{{- end }}
+{{- with get . "proxyjump" }}
+  ProxyJump {{ . }}
+{{- end }}
+  IdentityFile ~/.ssh/homelab.pub
+{{- end }}
+
+Host *
+  IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+  IdentitiesOnly yes
+  ForwardAgent no
+  ServerAliveInterval 30

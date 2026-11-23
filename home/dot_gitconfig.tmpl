@@ -1,0 +1,25 @@
+{{- $f := dict -}}
+{{- range (onepassword .gitItem .vault).fields -}}
+{{-   if get . "label" }}{{ $_ := set $f (get . "label") (get . "value") }}{{ end -}}
+{{- end -}}
+# Managed by chezmoi. Identity comes from 1Password item "{{ .gitItem }}".
+# Unmanaged settings (aliases, credential helpers, lfs…) go in ~/.gitconfig.local.
+# It is included first, so the values below win.
+[include]
+	path = ~/.gitconfig.local
+
+[user]
+	name = {{ get $f "name" }}
+	email = {{ get $f "email" }}
+
+[init]
+	defaultBranch = main
+
+# Global hooks (gitleaks + chained repo hooks), see macos-security.md
+[core]
+	hooksPath = {{ .chezmoi.workingTree }}/git-hooks
+{{- with get $f "work_dir" }}
+
+[includeIf "gitdir:{{ trimSuffix "/" . }}/"]
+	path = ~/.gitconfig-work
+{{- end }}

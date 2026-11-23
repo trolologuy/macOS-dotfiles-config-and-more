@@ -222,9 +222,7 @@ hs.hotkey.bind(hyper, "a", function()
 -- Generates a Cheatsheet for the current app
 Install:andUse("KSheet",
     {
-        hotkeys = { 
-            toggle = { hyper, ":" }
-        }
+        hotkeys = { toggle = { {"cmd","alt","ctrl","shift"}, ";" } }
     }
 )
 
